@@ -35,17 +35,24 @@ namespace mtsp_drones_gym {
 
         Eigen::Vector4d get_state();
 
+        void write_position(Eigen::Vector2d new_position);
+
         Eigen::Vector4d get_start_and_dest();
 
         friend class Drone;
         friend class Workspace;
     };
 
+    void Payload::write_position(Eigen::Vector2d new_position) {
+        this->position = new_position;
+    }
+
     Payload::Payload(double x, double y, double mass,
                      double dest_x, double dest_y) {
         this->initial_position = vec(x, y);
         this->position = vec(x, y);
         this->mass_ = mass;
+        this->radius_ = mass*0.05;
         this->destination = vec(dest_x, dest_y);
 
         // std::cout << "initializing payload with mass " << this->mass_ << "\nand position " << this->position << std::endl;
